@@ -5,9 +5,8 @@
 # --------------------------------
 # modo python
 # EMAG
-# cleanup meshref scene file0
+# cleanup meshref scene file
 
-from dataclasses import replace
 import lx
 import modo
 import modo.constants as c
@@ -299,7 +298,7 @@ def main():
             del_polygon_part(mesh)
 
     selection_store = set()
-    
+
     # [ ] convert mesh instances to meshes
     if opt.mesh_instance_to_mesh:
         instances = modo.Scene().items(itype=c.MESHINST_TYPE)
@@ -314,7 +313,7 @@ def main():
             selection_store.add(loc)
             loc.select(replace=True)
             lx.eval("item.channel locator$size {}".format(opt.loc_size))
-    
+
     # [ ] delete mesh instances
     if opt.del_mesh_instance:
         instances = modo.Scene().items(itype=c.MESHINST_TYPE)
