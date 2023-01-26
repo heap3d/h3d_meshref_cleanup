@@ -201,7 +201,7 @@ def add_base_material():
     lx.eval("material.smoothWeight angle true")
 
 
-def del_polygon_part(mesh, part_tag="Default"):
+def set_polygon_part(mesh, part_tag="Default"):
     mesh.select(replace=True)
     lx.eval('poly.setPart "{}"'.format(part_tag))
 
@@ -295,17 +295,17 @@ def main():
     # [x] process polygon parts
     if opt.del_polygon_part:
         for mesh in modo.Scene().items(itype=c.MESH_TYPE):
-            del_polygon_part(mesh)
+            set_polygon_part(mesh)
 
     selection_store = set()
 
-    # [ ] convert mesh instances to meshes
+    # [x] convert mesh instances to meshes
     if opt.mesh_instance_to_mesh:
         instances = modo.Scene().items(itype=c.MESHINST_TYPE)
         for meshinst in instances:
             selection_store.add(mesh_instance_to_mesh(meshinst))
 
-    # [ ] convert mesh instances to locators
+    # [x] convert mesh instances to locators
     if opt.mesh_instance_to_loc:
         instances = modo.Scene().items(itype=c.MESHINST_TYPE)
         for meshinst in instances:
@@ -314,7 +314,7 @@ def main():
             loc.select(replace=True)
             lx.eval("item.channel locator$size {}".format(opt.loc_size))
 
-    # [ ] delete mesh instances
+    # [x] delete mesh instances
     if opt.del_mesh_instance:
         instances = modo.Scene().items(itype=c.MESHINST_TYPE)
         for meshinst in instances:
